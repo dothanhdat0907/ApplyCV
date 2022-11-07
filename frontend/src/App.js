@@ -1,9 +1,15 @@
-
-import {Login} from './components/Login/Login'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './components/Login/Login'
+import SignUp from './components/Login/Signup';
 
 function App() {
   return (
-    <Login/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />}/>
+        <Route path="/signup" element={<SignUp />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
