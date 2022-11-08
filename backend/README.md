@@ -3,9 +3,9 @@
 ## Cài đặt Python + Django:
 
 ### Khác nhau hệ điều hành
-- Win10: pip - py <br />
-- Win11: pip - python <br />
-- Mac:   pip3 - python?? <br />
+- Win10: ```pip``` và ```py``` <br />
+- Win11: ```pip``` và ```python``` <br />
+- MacOS:   ```pip3``` và ```python```?? <br />
 
 ### Tải python3
 <a href="https://www.python.org/downloads/" target="_blank">Python3</a>
