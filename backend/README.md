@@ -1,9 +1,11 @@
-#Cài đặt Python + Django:
+# Backend
 
-##Tải python3
+# Cài đặt Python + Django:
+
+## Tải python3
 https://www.python.org/downloads/
 
-##Cài đặt Django
+## Cài đặt Django
 Với Windows:
 pip install django
 
