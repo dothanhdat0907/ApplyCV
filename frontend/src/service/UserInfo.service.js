@@ -6,7 +6,7 @@ export const UserService = () => {
     const SignIn = async () => {
         await axios({
             method: "GET",
-            url: `${api_url}/accounts`,
+            url: `${api_url}/accounts/`,
         })
             .then((res) => {
                 const data = res.data

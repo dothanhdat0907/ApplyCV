@@ -17,9 +17,9 @@ const User = () => {
 
     return (
         <div>
-        {users.map((item) => (
+        {/* {users.map((item) => (
         <div key={item.id}>{item.username}</div>
-        ))}
+        ))} */}
         </div>
     )  
 }
