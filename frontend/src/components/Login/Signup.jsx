@@ -25,16 +25,34 @@ export default function SignUp() {
   }
 
   const handleSubmit = (event) => {
+    const back_end_url = 'http://127.0.0.1:8000/sign-up/';
+    const header = { 'Content-Type': 'application/json' };
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      fullname: data.get('fullName'),
+    var jsondata = {
+      username: data.get('username'),
       email: data.get('email'),
       password: data.get('password'),
-      role: {role}
-    });
+      role: role,
+    };
+    fetch(back_end_url,{
+        method: 'POST',
+        headers: header,
+        mode: 'cors',
+        body: JSON.stringify(jsondata)
+      }
+    ).then(async (response)=>{
+      // Get json data
+      var data = await response.json();
+      console.log(data);
+      // Get status code
+      console.log(response.statusText);
+      console.log(response.status);
+    }).catch((error)=>{
+        console.log('something wrong:::',error);
+    });  
   };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,11 +74,11 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="fullName"
+                  name="username"
                   required
                   fullWidth
-                  id="fullName"
-                  label="Full Name"
+                  id="username"
+                  label="Username"
                   autoFocus
                 />
               </Grid>

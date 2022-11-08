@@ -16,12 +16,31 @@ const theme = createTheme();
 
 export default function SignInSide() {
   const handleSubmit = (event) => {
+    const back_end_url = 'http://127.0.0.1:8000/sign-in/';
+    const header = { 'Content-Type': 'application/json' };
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    var jsondata = {
       username: data.get('username'),
       password: data.get('password'),
-    });
+    };
+    fetch(back_end_url,{
+        method: 'POST',
+        headers: header,
+        mode: 'cors',
+        body: JSON.stringify(jsondata)
+      }
+    ).then(async (response)=>{
+      // Get json data
+      var data = await response.json();
+      console.log(data);
+      // Get status code
+      console.log(response.statusText);
+      console.log(response.status);
+    }).catch((error)=>{
+        console.log('something wrong:::',error);
+    });  
   };
 
   return (
