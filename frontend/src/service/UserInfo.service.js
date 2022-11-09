@@ -10,6 +10,7 @@ export const UserService = () => {
         })
             .then((res) => {
                 const data = res.data
+                console.log(data)
                 return data
             })
             .catch((err) => {

@@ -5,13 +5,13 @@ import MainPage from './components/MainPage/MainPage'
 
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/" element={<Login />}/>
-    //     <Route path="/signup" element={<SignUp />}/>
-    //   </Routes>
-    // </BrowserRouter>'
-    <MainPage/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />}/>
+        <Route path="/signup" element={<SignUp />}/>
+        <Route path="/mainpage" element={<MainPage />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
