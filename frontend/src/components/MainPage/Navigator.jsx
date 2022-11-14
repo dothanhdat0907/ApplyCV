@@ -2,27 +2,16 @@ import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 
-const categories = [
-  {
-    id: 'APPLICATION',
-    children: [
-      { id: 'Dashboard', active: true},
-      { id: 'My Recruitment', active: false},
-    ],
-  },
-  {
-    id: 'SETTING',
-    children: [
-      { id: 'My Profile' },
-      { id: 'Quit' },
-    ],
-  },
+const initCategories = [    
+  {index: 0, id: 'Dashboard'},
+  {index: 1, id: 'My Recruitment'},
+  {index: 2, id: 'My Profile'},
+  {index: 3, id: 'Quit' },
 ];
 
 const item = {
@@ -34,37 +23,30 @@ const item = {
   },
 };
 
-const itemCategory = {
-  boxShadow: '0 -1px 0 rgb(255,255,255,0.1) inset',
-  py: 1.5,
-  px: 3,
-};
-
 export default function Navigator(props) {
   const { ...other } = props;
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+  const handleChageActive = (id) => {
+    initCategories.forEach((item, index) => {
+      if(item.id === id)
+        setSelectedIndex(index)
+    }) 
+  }
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem sx={{ ...item, ...itemCategory, fontSize: 45, color: '#fff' }}>
+        <ListItem sx={{ ...item, fontSize: 45, color: '#fff' }}>
           ApplyCV
         </ListItem>
-        {categories.map(({ id, children }) => (
-          <Box key={id} sx={{ bgcolor: '#101F33' }}>
-            <ListItem sx={{ py: 2, px: 3 }}>
-              <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
-            </ListItem>
-            {children.map(({ id: childId, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemText>{childId}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            ))}
-
-            <Divider sx={{ mt: 2 }} />
-          </Box>
+        {initCategories.map(({ index, id }) => (
+          <ListItem key={id}>
+            <ListItemButton onClick={() => handleChageActive(id)} selected={selectedIndex === index} sx={item}>
+              <ListItemText>{id}</ListItemText>
+            </ListItemButton>
+          </ListItem>
         ))}
+        <Divider sx={{ mt: 2 }} />
       </List>
     </Drawer>
   );

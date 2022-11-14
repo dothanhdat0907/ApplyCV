@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import {Button, 
         CssBaseline, 
         TextField, 
@@ -11,36 +11,24 @@ import {Button,
         ThemeProvider 
       } from '@mui/material';
 import LoginImg from '../../assets/login.png'
+import { UserService } from '../../service/UserInfo.service';
 
 const theme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    const back_end_url = 'http://127.0.0.1:8000/sign-in/';
-    const header = { 'Content-Type': 'application/json' };
-
+  const navigate = useNavigate();
+  const {SignIn} = UserService()
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     var jsondata = {
       username: data.get('username'),
       password: data.get('password'),
     };
-    fetch(back_end_url,{
-        method: 'POST',
-        headers: header,
-        mode: 'cors',
-        body: JSON.stringify(jsondata)
+    const response = await SignIn(jsondata)
+    if(response === 'OK') {
+        navigate("/mainpage");
       }
-    ).then(async (response)=>{
-      // Get json data
-      var data = await response.json();
-      console.log(data);
-      // Get status code
-      console.log(response.statusText);
-      console.log(response.status);
-    }).catch((error)=>{
-        console.log('something wrong:::',error);
-    });  
   };
 
   return (
