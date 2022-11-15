@@ -32,6 +32,21 @@ def sign_up(request, format=None):
             'You Should Pick Your Role', 
             status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION
         )
+
+    if request.data['address'] == '':
+        return Response(
+            'You should provide your address',
+            status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,
+        )
+
+    if request.data['phonenumber'] == '':
+        return Response(
+            'You should provide your phone number',
+            status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,
+        )
+    else:
+        request.data['phone'] = request.data['phonenumber']
+        
     serializer = AccountSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
