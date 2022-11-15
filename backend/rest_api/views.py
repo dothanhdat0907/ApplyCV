@@ -35,8 +35,17 @@ def sign_up(request, format=None):
     serializer = AccountSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+        account = Account.objects.get(
+            username=request.data['username']
+        )
+        data = {
+            'name': account.name,
+            'email': account.email,
+            'phonenumber': account.phoneNumber,
+            'address': account.address,
+        }
         return Response(
-            serializer.data,
+            data,
             status=status.HTTP_201_CREATED
         )
     return Response('Error', status=status.HTTP_400_BAD_REQUEST)
@@ -58,7 +67,13 @@ def sign_in(request, format=None):
             'Wrong Password',
             status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION
         )
-    return Response('OK', status=status.HTTP_200_OK)
+    data = {
+        'name': account.name,
+        'email': account.email,
+        'phonenumber': account.phoneNumber,
+        'address': account.address,
+    }
+    return Response(data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def account_list(request, format=None):
