@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { update } from '../../redux/userSlice'
 import {Button, 
         CssBaseline,
         TextField,
@@ -22,6 +24,7 @@ const theme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [role, setRole] = React.useState('')
   const handleRole = (event) => {
     setRole(event.target.value)
@@ -32,14 +35,18 @@ export default function SignUp() {
     const {SignUp} = UserService()
     const data = new FormData(event.currentTarget);
     var jsondata = {
+      name: data.get('fullname'),
       username: data.get('username'),
       email: data.get('email'),
       password: data.get('password'),
+      phoneNumber: data.get('phoneNumber'),
+      address: data.get('address'),
       role: role,
     };
     const response = await SignUp(jsondata)
     console.log(typeof response)
     if(typeof response === 'object') {
+      dispatch(update(response))
       navigate('/mainpage')
     }
     
@@ -62,6 +69,17 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="fullname"
+                  required
+                  fullWidth
+                  id="fullname"
+                  label="Fullname"
+                  autoFocus
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
@@ -70,7 +88,6 @@ export default function SignUp() {
                   fullWidth
                   id="username"
                   label="Username"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,6 +98,26 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="phoneNumber"
+                  label="Phone Number"
+                  id="phoneNumber"
+                  autoComplete="phoneNuber"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="address"
+                  label="Address"
+                  id="address"
+                  autoComplete="address"
                 />
               </Grid>
               <Grid item xs={12}>
