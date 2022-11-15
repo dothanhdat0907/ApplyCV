@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { update } from '../../redux/userSlice'
 import {Button, 
         CssBaseline, 
         TextField, 
@@ -17,6 +19,7 @@ const theme = createTheme();
 
 export default function SignInSide() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const {SignIn} = UserService()
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +29,9 @@ export default function SignInSide() {
       password: data.get('password'),
     };
     const response = await SignIn(jsondata)
-    if(response === 'OK') {
+    console.log(response)
+    if(typeof response === 'object') {
+        dispatch(update(response))
         navigate("/mainpage");
       }
   };
