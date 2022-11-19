@@ -16,19 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_api import views
+from rest_api import account_views
+from rest_api import recruitment_views
+from rest_api import cv_views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sign-up/', views.sign_up),
-    path('sign-in/', views.sign_in),
-    path('accounts/', views.account_list),
-    path('accounts/<int:id>', views.account_detail),
-    path('recruitments/', views.recruitment_list),
-    path('recruitments/<int:id>', views.recruitment_detail),
-    path('cvs', views.cv_list),
-    path('cvs/<int:id>', views.cv_detail),
-    path('get-cv/<int:id>', views.cv_getfile),
+    path('sign-up/', account_views.sign_up),
+    path('sign-in/', account_views.sign_in),
+    path('accounts/', account_views.account_list),
+    path('accounts/<int:id>', account_views.account_detail),
+    path('recruitments/', recruitment_views.recruitment_list),
+    path('recruitments/<int:id>', recruitment_views.recruitment_detail),
+    path('search/', recruitment_views.search),
+    path('cvs', cv_views.cv_list),
+    path('cvs/<int:id>', cv_views.cv_detail),
+    path('get-cv/<int:id>', cv_views.cv_getfile),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
