@@ -44,7 +44,7 @@ export default function SignUp() {
       role: role,
     };
     const response = await SignUp(jsondata)
-    console.log(typeof response)
+    console.log(response)
     if(typeof response === 'object') {
       dispatch(update(response))
       navigate('/mainpage')
