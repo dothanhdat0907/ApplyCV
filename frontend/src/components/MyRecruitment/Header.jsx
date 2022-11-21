@@ -54,7 +54,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h3" component="h1">
-                Dashboard
+                My Recruitment
               </Typography>
             </Grid>
             <Grid item>

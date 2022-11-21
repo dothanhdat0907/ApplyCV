@@ -29,7 +29,6 @@ export default function SignInSide() {
       password: data.get('password'),
     };
     const response = await SignIn(jsondata)
-    console.log(response)
     if(typeof response === 'object') {
         dispatch(update(response))
         navigate("/mainpage");

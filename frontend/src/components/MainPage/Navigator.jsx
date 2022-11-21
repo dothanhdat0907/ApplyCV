@@ -5,12 +5,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
+import { useNavigate } from "react-router-dom";
 
 const initCategories = [    
-  {index: 0, id: 'Dashboard'},
-  {index: 1, id: 'My Recruitment'},
-  {index: 2, id: 'My Profile'},
+  {index: 0, id: 'Dashboard', link: 'mainpage'},
+  {index: 1, id: 'My Recruitment', link: 'MyRecruitment'},
+  {index: 2, id: 'My Profile', link: 'Profile'},
   {index: 3, id: 'Quit' },
 ];
 
@@ -26,11 +26,20 @@ const item = {
 export default function Navigator(props) {
   const { ...other } = props;
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const navigate = useNavigate();
 
   const handleChageActive = (id) => {
+    if(id === 'Quit') {
+      localStorage.clear()
+      navigate('/')
+      window.location.reload();
+      return
+    }
     initCategories.forEach((item, index) => {
-      if(item.id === id)
+      if(item.id === id) {
         setSelectedIndex(index)
+        navigate(`/${item.link}`)
+      }
     }) 
   }
   return (

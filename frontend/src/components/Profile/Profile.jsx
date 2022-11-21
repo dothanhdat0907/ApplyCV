@@ -3,17 +3,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Navigator from './Navigator';
+import Navigator from '../MainPage/Navigator';
 import Header from './Header';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import Recruitment from '../Recruitment/Recruitment';
-
-
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid'
+import { useSelector, useDispatch } from 'react-redux'
+import { update } from '../../redux/userSlice'
 
 let theme = createTheme({
   palette: {
@@ -160,10 +156,24 @@ theme = {
 
 const drawerWidth = 256;
 
-export default function MainPage() {
+export default function Profile() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    var jsondata = {
+      name: data.get('fullname'),
+      email: data.get('email'),
+      phoneNumber: data.get('phoneNumber'),
+      address: data.get('address'),
+    };
+    dispatch(update(jsondata))
 
+  }
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -192,38 +202,62 @@ export default function MainPage() {
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-          <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
-      >
-        <Toolbar>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item>
-              <SearchIcon color="inherit" sx={{ display: 'block' }} />
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="fullname"
+                  required
+                  fullWidth
+                  id="fullname"
+                  label="Fullname"
+                  defaultValue={user.name}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  defaultValue={user.email}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="phoneNumber"
+                  label="Phone Number"
+                  id="phoneNumber"
+                  autoComplete="phoneNuber"
+                  defaultValue={user.phonenumber}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="address"
+                  label="Address"
+                  id="address"
+                  autoComplete="address"
+                  defaultValue={user.address}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs>
-              <TextField
-                fullWidth
-                placeholder="Search by job, salary, company, address..."
-                InputProps={{
-                  disableUnderline: true,
-                  sx: { fontSize: 'default' },
-                }}
-                variant="standard"
-              />
-            </Grid>
-            <Grid item>
-              <Button variant="contained" sx={{ mr: 1 }}>
-                New Recruitment
+            <Grid container justifyContent="flex-end" sx={{ '& button': { m: 1 }}} >
+            <Button
+                type="submit"
+                size='large'
+                variant="contained"
+              >
+                Save
               </Button>
-            </Grid>
           </Grid>
-        </Toolbar>
-      </AppBar>
-            <Recruitment/>
           </Box>
         </Box>
       </Box>
