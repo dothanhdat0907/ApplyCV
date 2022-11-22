@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'counter',
   initialState: {
+    id: 0,
     name:'name',
     email:'email',
     phonenumber: '012345',
@@ -11,6 +12,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     update: (state, action) => {
+      state.id = action.payload.id;
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.phonenumber = action.payload.phoneNumber;

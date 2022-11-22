@@ -8,9 +8,9 @@ import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from "react-router-dom";
 
 const initCategories = [    
-  {index: 0, id: 'Dashboard', link: 'mainpage'},
-  {index: 1, id: 'My Recruitment', link: 'MyRecruitment'},
-  {index: 2, id: 'My Profile', link: 'Profile'},
+  {index: 0, id: 'Dashboard'},
+  {index: 1, id: 'My Recruitment'},
+  {index: 2, id: 'My Profile'},
   {index: 3, id: 'Quit' },
 ];
 
@@ -38,9 +38,10 @@ export default function Navigator(props) {
     initCategories.forEach((item, index) => {
       if(item.id === id) {
         setSelectedIndex(index)
-        navigate(`/${item.link}`)
+        props.changetitle(item.id)
       }
-    }) 
+    })
+    
   }
   return (
     <Drawer variant="permanent" {...other}>

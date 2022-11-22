@@ -16,7 +16,6 @@ const lightColor = 'rgba(255, 255, 255, 0.7)';
 function Header(props) {
   const { onDrawerToggle } = props;
   const user = useSelector((state) => state.user)
-
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -54,7 +53,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h3" component="h1">
-                Dashboard
+                {props.getTitle()}
               </Typography>
             </Grid>
             <Grid item>
