@@ -3,13 +3,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Navigator from '../MainPage/Navigator';
-import Header from './Header';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid'
-import { useSelector, useDispatch } from 'react-redux'
-import { update } from '../../redux/userSlice'
+import Navigator from '../Navigator';
+import Header from '../Header';
+import Recruitment from '../Recruitment';
+
 
 let theme = createTheme({
   palette: {
@@ -156,24 +153,10 @@ theme = {
 
 const drawerWidth = 256;
 
-export default function Profile() {
+export default function MyRecruitment() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    var jsondata = {
-      name: data.get('fullname'),
-      email: data.get('email'),
-      phoneNumber: data.get('phoneNumber'),
-      address: data.get('address'),
-    };
-    dispatch(update(jsondata))
 
-  }
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -202,62 +185,8 @@ export default function Profile() {
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="fullname"
-                  required
-                  fullWidth
-                  id="fullname"
-                  label="Fullname"
-                  defaultValue={user.name}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  defaultValue={user.email}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="phoneNumber"
-                  label="Phone Number"
-                  id="phoneNumber"
-                  autoComplete="phoneNuber"
-                  defaultValue={user.phonenumber}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="address"
-                  label="Address"
-                  id="address"
-                  autoComplete="address"
-                  defaultValue={user.address}
-                />
-              </Grid>
-            </Grid>
-            <Grid container justifyContent="flex-end" sx={{ '& button': { m: 1 }}} >
-            <Button
-                type="submit"
-                size='large'
-                variant="contained"
-              >
-                Save
-              </Button>
-          </Grid>
+          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+            <Recruitment/>
           </Box>
         </Box>
       </Box>
