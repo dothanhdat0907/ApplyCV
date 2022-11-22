@@ -55,15 +55,3 @@ def search(request, format = None):
 
     serializer = RecruitmentSerializer(recruitments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-@api_view(['GET'])
-def recruitments_of_company(request,idCompany, format = None):
-    try:
-        recruitments = Recruitment.objects.filter(
-            idCompany=idCompany
-        )
-    except Recruitment.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    serializer = RecruitmentSerializer(recruitments, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
