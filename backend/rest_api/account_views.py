@@ -112,6 +112,18 @@ def account_detail(request, id, format=None):
         serializer = AccountSerializer(account)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        if request.data['role'] == 'company':
+            request.data['isCompany'] = True
+            request.data['isAdmin'] = False
+            request.data['isEmployee'] = False
+        elif request.data['role'] == 'employee':
+            request.data['isEmployee'] = True
+            request.data['isAdmin'] = False
+            request.data['isCompany'] = False
+        else:
+            request.data['isAdmin'] = True
+            request.data['isCompany'] = False
+            request.data['isEmployee'] = False
         serializer = AccountSerializer(account, data=request.data)
         if serializer.is_valid():
             serializer.save()
