@@ -55,11 +55,7 @@ def sign_up(request, format=None):
             status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,
         )
 
-    if request.data['role'] == 'company':
-        request.data['isCompany'] = True
-    elif request.data['role'] == 'employee':
-        request.data['isEmployee'] = True
-    else:
+    if request.data['isCompany'] == False and request.data['isEmployee'] == False:
         return Response(
             'You Should Pick Your Role', 
             status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION
@@ -112,18 +108,6 @@ def account_detail(request, id, format=None):
         serializer = AccountSerializer(account)
         return Response(serializer.data)
     elif request.method == 'PUT':
-        if request.data['role'] == 'company':
-            request.data['isCompany'] = True
-            request.data['isAdmin'] = False
-            request.data['isEmployee'] = False
-        elif request.data['role'] == 'employee':
-            request.data['isEmployee'] = True
-            request.data['isAdmin'] = False
-            request.data['isCompany'] = False
-        else:
-            request.data['isAdmin'] = True
-            request.data['isCompany'] = False
-            request.data['isEmployee'] = False
         serializer = AccountSerializer(account, data=request.data)
         if serializer.is_valid():
             serializer.save()

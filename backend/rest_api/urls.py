@@ -27,6 +27,7 @@ urlpatterns = [
     path('sign-in/', account_views.sign_in),
     path('accounts/', account_views.account_list),
     path('accounts/<int:id>', account_views.account_detail),
+    
     path('recruitments/', recruitment_views.recruitment_list),
 
     #trả về recruitment dựa theo id recruitment + update recruitment dựa trên id
