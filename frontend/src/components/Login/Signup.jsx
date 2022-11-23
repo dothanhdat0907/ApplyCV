@@ -29,6 +29,12 @@ export default function SignUp() {
   const handleRole = (event) => {
     setRole(event.target.value)
   }
+  const setisEmployee = () => {
+    return role === "employee" ? true : false
+  }
+  const setisCompany = () => {
+    return role === "company" ? true : false
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,7 +47,8 @@ export default function SignUp() {
       password: data.get('password'),
       phoneNumber: data.get('phoneNumber'),
       address: data.get('address'),
-      role: role,
+      isEmployee: setisEmployee(),
+      isCompany: setisCompany(),
     };
     const response = await SignUp(jsondata)
     console.log(response)
