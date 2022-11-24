@@ -1,10 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './components/Login/Login'
 import SignUp from './components/Login/Signup';
-import Dashboard from "./components/MainPage/Dashboard/Dashboard";
-import MyRecruitment from "./components/MainPage/MyRecruitment/MyRecruitment";
-import Profile from "./components/MainPage/Profile/Profile";
-
+import MainPage from "./components/MainPage/MainPage";
 
 function App() {
   return (
@@ -12,9 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />}/>
         <Route path="/signup" element={<SignUp />}/>
-        <Route path="/mainpage" element={<Dashboard />}/>
-        <Route path="/Profile" element={<Profile />}/>
-        <Route path="/MyRecruitment" element={<MyRecruitment />}/>
+        <Route path="/mainpage" element={<MainPage />}/>     
       </Routes>
     </BrowserRouter>
   );

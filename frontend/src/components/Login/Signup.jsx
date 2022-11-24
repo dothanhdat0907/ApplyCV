@@ -26,6 +26,7 @@ export default function SignUp() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [role, setRole] = React.useState('')
+  const {SignUp} = UserService()
   const handleRole = (event) => {
     setRole(event.target.value)
   }
@@ -38,7 +39,7 @@ export default function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const {SignUp} = UserService()
+    
     const data = new FormData(event.currentTarget);
     var jsondata = {
       name: data.get('fullname'),

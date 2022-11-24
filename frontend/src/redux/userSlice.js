@@ -4,6 +4,8 @@ export const userSlice = createSlice({
   name: 'counter',
   initialState: {
     id: 0,
+    username: 'username',
+    password: 'password',
     name:'name',
     email:'email',
     phonenumber: '012345',
@@ -17,6 +19,8 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.phonenumber = action.payload.phoneNumber;
       state.address = action.payload.address;
+      state.username = action.payload.username;
+      state.password = action.payload.password;
       if(action.payload.isAdmin === true) {
         state.role = 'Admin'
       }
