@@ -61,6 +61,21 @@ export const UserService = () => {
             });
             return result
     };
+    const getCompany = async (id) => {
+        let result = ''
+        await axios({
+            method: "GET",
+            url: `${api_url}/accounts/${id}`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+        })
+            .then((res) => {
+                result = res.data  
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
     const getAllRecruitment = async () => {
         let result = ''
         await axios({
@@ -91,6 +106,24 @@ export const UserService = () => {
             });
             return result
     };
+    const getSearchRecruitment = async (data) => {
+        let result = ''
+        await axios({
+            method: "GET",
+            url: `${api_url}/search/`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+            data: {
+                ...data
+            }
+        })
+            .then((res) => {
+                result = res.data   
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
     const createRecruitment = async (data) => {
         let result = ''
         await axios({
@@ -111,21 +144,5 @@ export const UserService = () => {
             return result
     };
 
-    const getAllCV = async () => {
-        let result = ''
-        await axios({
-            method: "GET",
-            url: `${api_url}/cvs`,
-            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
-        })
-            .then((res) => {
-                result = res.data   
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-            return result
-    };
-    
-    return { SignIn, SignUp, updateUser, getAllRecruitment, getCompanyRecruitment, createRecruitment, getAllCV }
+    return { SignIn, SignUp, updateUser, getAllRecruitment, getCompanyRecruitment, getSearchRecruitment, createRecruitment, getCompany }
 }

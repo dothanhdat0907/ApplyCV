@@ -17,7 +17,7 @@ export default function Recruitment(props) {
     }
     fetchMyAPI()
   }, [])
-  console.log(data)
+  
   return (
         <Card sx={{  minWidth: 800}}>
           <CardContent>
