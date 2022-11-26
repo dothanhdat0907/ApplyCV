@@ -74,11 +74,13 @@ export default function CreateRecruitment() {
       tag: data.get('tag'),
       description: data.get('description'),
       time: data.get('time'),
-      IsApproved: false,
+      isApproved: false,
     };
-    console.log(jsondata)
     const response = await createRecruitment(jsondata)
-    console.log(response)
+    if(typeof response === 'object') {
+      alert("Sucessful")
+      navigate('/mainpage')
+    }
     
   };
 
