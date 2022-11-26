@@ -76,6 +76,56 @@ export const UserService = () => {
             });
             return result
     };
+    const getCompanyRecruitment = async (id) => {
+        let result = ''
+        await axios({
+            method: "GET",
+            url: `${api_url}/search/${id}`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+        })
+            .then((res) => {
+                result = res.data   
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
+    const createRecruitment = async (data) => {
+        let result = ''
+        await axios({
+            method: "POST",
+            url: `${api_url}/recruitments/`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+            data: {
+                ...data
+            }
+        })
+            .then((res) => {
+                result = res.data
+                console.log(result)   
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
+
+    const getAllCV = async () => {
+        let result = ''
+        await axios({
+            method: "GET",
+            url: `${api_url}/cvs`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+        })
+            .then((res) => {
+                result = res.data   
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
     
-    return { SignIn, SignUp, updateUser, getAllRecruitment }
+    return { SignIn, SignUp, updateUser, getAllRecruitment, getCompanyRecruitment, createRecruitment, getAllCV }
 }

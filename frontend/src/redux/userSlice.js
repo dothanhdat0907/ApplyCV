@@ -25,7 +25,7 @@ export const userSlice = createSlice({
         state.role = 'Admin'
       }
       if(action.payload.isCompany === true) {
-        state.role = 'Comapny'
+        state.role = 'Company'
       }
       if(action.payload.isEmployee === true) {
         state.role = 'Employee'

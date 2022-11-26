@@ -11,11 +11,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 function Header(props) {
   const { onDrawerToggle } = props;
+  const navigate = useNavigate()
   const user = useSelector((state) => state.user)
+
+  const createRecruitment = () => {
+    navigate('/create')
+  }
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -56,12 +62,23 @@ function Header(props) {
                 {props.getTitle()}
               </Typography>
             </Grid>
+            {user.role === "Company" ? (<Grid item>
+              <Button
+                sx={{ borderColor: lightColor }}
+                variant="contained"
+                color="inherit"
+                size="large"
+                onClick={createRecruitment}
+              >
+                Create New Recruitment
+              </Button>
+            </Grid>) : <></> }
             <Grid item>
               <Button
                 sx={{ borderColor: lightColor }}
                 variant="outlined"
                 color="inherit"
-                size="small"
+                size="large"
               >
                {`${user.role}: ${user.name}`}
               </Button>
