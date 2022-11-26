@@ -43,10 +43,20 @@ def recruitment_detail(request, id, format=None):
 def search(request, format = None):
     try:
         print(request.data['job'])
-        recruitments = Recruitment.objects.filter(
-            job=request.data['job'],
-            salary = request.data['salary'],
-        )
+        print(request.data['salary'])
+        if request.data['job'] == '':
+            recruitments = Recruitment.objects.filter(
+                salary = request.data['salary'],
+            )
+        elif request.data['salary'] == '':
+            recruitments = Recruitment.objects.filter(
+                job = request.data['job'],
+            )
+        else:
+            recruitments = Recruitment.objects.filter(
+                job=request.data['job'],
+                salary = request.data['salary'],
+            )
     except Exception as e:
         print(e)
         return Response(
