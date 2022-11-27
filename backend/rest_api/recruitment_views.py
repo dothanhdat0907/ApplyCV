@@ -39,11 +39,14 @@ def recruitment_detail(request, id, format=None):
         recruitment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def search(request, format = None):
+    print(request.data)
     try:
+        print(1)
         print(request.data['job'])
         print(request.data['salary'])
+        print(1)
         if request.data['job'] == '':
             recruitments = Recruitment.objects.filter(
                 salary = request.data['salary'],

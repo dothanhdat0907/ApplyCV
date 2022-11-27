@@ -58,7 +58,7 @@ class Recruitment(models.Model):
 class CV(models.Model):
     idAccount = models.IntegerField()
     idRecruitment = models.IntegerField()
-    file = models.FileField(upload_to='spec')
+    data = models.CharField(max_length = 500000, blank=True)
 
     def __str__(self):
         return str(self.idAccount) + " " + str(self.idRecruitment)

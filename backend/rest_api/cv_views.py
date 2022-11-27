@@ -43,18 +43,21 @@ def cv_getfile(request, id, format=None):
     except CV.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    try:    
-        buffer = io.BytesIO()
-        zip_file = zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
-        path_cv = cv.file.path
-        print(path_cv)
-        zip_file.write(path_cv, basename(path_cv))
-        zip_file.close()
-        response = HttpResponse(buffer.getvalue())
-        response['Content-Disposition'] = 'attachment; filename=all-cv.zip'
-        return response
-    except IOError:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    # try:    
+    #     buffer = io.BytesIO()
+    #     zip_file = zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
+    #     path_cv = cv.file.path
+    #     print(path_cv)
+    #     zip_file.write(path_cv, basename(path_cv))
+    #     zip_file.close()
+    #     response = HttpResponse(buffer.getvalue())
+    #     response['Content-Disposition'] = 'attachment; filename=all-cv.zip'
+    #     return response
+    # except IOError:
+    #     return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = CVSerializer(cv)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def cv_of_recruitment(request, idRecruitment, format=None):
@@ -65,16 +68,18 @@ def cv_of_recruitment(request, idRecruitment, format=None):
     except CV.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    try:    
-        buffer = io.BytesIO()
-        zip_file = zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
-        for cv in cvs:
-            path_cv = cv.file.path
-            print(path_cv)
-            zip_file.write(path_cv, basename(path_cv))
-        zip_file.close()
-        response = HttpResponse(buffer.getvalue())
-        response['Content-Disposition'] = 'attachment; filename=all-cv.zip'
-        return response
-    except IOError:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    # try:    
+    #     buffer = io.BytesIO()
+    #     zip_file = zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
+    #     for cv in cvs:
+    #         path_cv = cv.file.path
+    #         print(path_cv)
+    #         zip_file.write(path_cv, basename(path_cv))
+    #     zip_file.close()
+    #     response = HttpResponse(buffer.getvalue())
+    #     response['Content-Disposition'] = 'attachment; filename=all-cv.zip'
+    #     return response
+    # except IOError:
+    #     return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = CVSerializer(cvs, many=True)
+    return Response(serializer.data)

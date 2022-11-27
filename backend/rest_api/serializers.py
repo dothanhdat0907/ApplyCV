@@ -41,5 +41,5 @@ class CVSerializer(serializers.ModelSerializer):
             'id',
             'idAccount',
             'idRecruitment',
-            'file',
+            'data',
         ]
