@@ -72,7 +72,6 @@ export default function Dashboard() {
     const response = await getSearchRecruitment(jsondata)
     dataSet(response)
   }
-  
   return (
     <Box sx={{  minWidth: 800, maxWidth: 800 }}>
       <AppBar

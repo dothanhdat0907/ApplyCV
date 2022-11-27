@@ -135,8 +135,40 @@ export const UserService = () => {
             }
         })
             .then((res) => {
-                result = res.data
-                console.log(result)   
+                result = res.data  
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
+    const storeCV = async (data) => {
+        let result = ''
+        await axios({
+            method: "POST",
+            url: `${api_url}/cvs`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+            data: {
+                ...data
+            }
+        })
+            .then((res) => {
+                result = res.data   
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            return result
+    };
+    const getRecruitmentCV = async (idRecruitment) => {
+        let result = ''
+        await axios({
+            method: "GET",
+            url: `${api_url}/cvs-of-recruitment/${idRecruitment}`,
+            // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
+        })
+            .then((res) => {
+                result = res.data  
             })
             .catch((err) => {
                 console.error(err);
@@ -144,5 +176,5 @@ export const UserService = () => {
             return result
     };
 
-    return { SignIn, SignUp, updateUser, getAllRecruitment, getCompanyRecruitment, getSearchRecruitment, createRecruitment, getCompany }
+    return { SignIn, SignUp, updateUser, getAllRecruitment, getCompanyRecruitment, getSearchRecruitment, createRecruitment, getCompany, storeCV, getRecruitmentCV }
 }

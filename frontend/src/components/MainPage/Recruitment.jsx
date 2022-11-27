@@ -5,11 +5,14 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react';
 import { UserService } from '../../service/UserInfo.service';
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function Recruitment(props) {
-  const {getCompany} = UserService()
+  const user = useSelector((state) => state.user)
+  const {getCompany, storeCV} = UserService()
   const [data, dataSet] = React.useState([])
   const [CVFile, setCVFile] = React.useState(null)
 
@@ -34,9 +37,15 @@ export default function Recruitment(props) {
     }
   }
   
-  const applyCV = (e) => {
+  const applyCV = async(e) => {
     e.preventDefault()
-    console.log(CVFile)
+    const jsondata = {
+      idAccount: user.id,
+      idRecruitment: props.recruitmentdetail.id,
+      data: CVFile
+    }
+    const respone = await storeCV(jsondata)
+    alert('Apply Succesful')
   }
 
   return (
@@ -76,9 +85,9 @@ export default function Recruitment(props) {
           </CardContent>
           <CardActions>
           <form onSubmit={applyCV}>
-            <input accept="application/pdf" type="file" required onChange={handlePdfFile}
+            <input className='form-control' accept="application/pdf" type="file" required onChange={handlePdfFile}
             /> <br></br>
-            <button type="submit">
+            <button className='btn btn-success' type="submit">
               Apply
             </button>
           </form>

@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
+import CVReducer from './CVSlice'
 import {
   persistStore,
   persistReducer,
@@ -19,7 +20,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  CV: CVReducer
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
