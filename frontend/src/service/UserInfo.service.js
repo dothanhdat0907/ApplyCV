@@ -106,18 +106,18 @@ export const UserService = () => {
             });
             return result
     };
-    const getSearchRecruitment = async (data) => {
+    const getSearchRecruitment = async (dataSearch) => {
         let result = ''
         await axios({
-            method: "GET",
+            method: "POST",
             url: `${api_url}/search/`,
             // header: { 'Content-Type': 'application/json' },  chỉnh  sửa header khi thêm jwt
             data: {
-                ...data
+                ...dataSearch
             }
         })
             .then((res) => {
-                result = res.data   
+                result = res.data 
             })
             .catch((err) => {
                 console.error(err);

@@ -11,6 +11,7 @@ import { UserService } from '../../service/UserInfo.service';
 export default function Recruitment(props) {
   const {getCompany} = UserService()
   const [data, dataSet] = React.useState([])
+  const [CVFile, setCVFile] = React.useState(null)
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -19,9 +20,23 @@ export default function Recruitment(props) {
     }
     fetchMyAPI()
   }, [])
-  
-  const applyCV = () => {
 
+  const handlePdfFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      console.log("Smt Wrong!!")
+      return
+    }
+    const reader = new FileReader()
+    reader.readAsDataURL(file);
+    reader.onloadend = (e) => {
+      setCVFile(e.target.result);
+    }
+  }
+  
+  const applyCV = (e) => {
+    e.preventDefault()
+    console.log(CVFile)
   }
 
   return (
@@ -60,10 +75,13 @@ export default function Recruitment(props) {
             </Box>
           </CardContent>
           <CardActions>
-            <Button variant="contained" component="label">
-              Upload
-              <input hidden accept="image/*" multiple type="file" />
-            </Button>
+          <form onSubmit={applyCV}>
+            <input accept="application/pdf" type="file" required onChange={handlePdfFile}
+            /> <br></br>
+            <button type="submit">
+              Apply
+            </button>
+          </form>
           </CardActions>
         </Card>
   );

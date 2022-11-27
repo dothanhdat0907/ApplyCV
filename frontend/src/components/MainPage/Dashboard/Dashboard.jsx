@@ -27,7 +27,7 @@ export default function Dashboard() {
       dataSet(response)
     }
     fetchMyAPI()
-  }, [data])
+  }, [])
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
@@ -70,7 +70,7 @@ export default function Dashboard() {
       } 
     }
     const response = await getSearchRecruitment(jsondata)
-    console.log(response)
+    dataSet(response)
   }
   
   return (
