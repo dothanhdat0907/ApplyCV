@@ -61,7 +61,7 @@ export default function SignInSide() {
             }}
           >
             <Typography component="h1" variant="h5">
-              Sign in
+              Login
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
